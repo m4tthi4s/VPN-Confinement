@@ -83,6 +83,8 @@ in pkgs.writeShellApplication {
       fi
     done
 
+    echo "hosts: files dns" > /etc/netns/${netnsName}/nsswitch.conf
+
     # Strips the config of wg-quick settings
     shopt -s extglob
     strip_wgquick_config() {

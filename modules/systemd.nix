@@ -48,12 +48,25 @@ in {
 
           InaccessiblePaths = [
             "/run/nscd"
+            "/var/run/nscd"
             "/run/resolvconf"
+            "/var/run/resolvconf"
+          ];
+
+          TemporaryFileSystem = [
+              "/run/nscd:ro"
+              "/var/run/nscd:ro"
+              "/run/resolvconf:ro"
+              "/var/run/resolvconf:ro"
           ];
 
           BindReadOnlyPaths = [
             "/etc/netns/${vpn}/resolv.conf:/etc/resolv.conf:norbind"
+            "/etc/netns/${vpn}/nsswitch.conf:/etc/nsswitch.conf:norbind"
           ];
+
+          NoNewPrivileges = true;
+          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         };
       };
     }));
